@@ -1,119 +1,109 @@
 <?php
-// user/home.php
-include "include/header.php";
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wheel Rentals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-    /* Hero Section */
-    .hero {
-        background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-                    url("assets/images/home.jpg") center/cover no-repeat;
-        height: 80vh;
-        color: #fff;
-        display: flex;
-        align-items: center;
-    }
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    .hero h1 {
-        font-size: 3rem;
-        font-weight: bold;
-    }
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="asset/style.css">
 
-    /* Featured Cars */
-    .car-card img {
-        height: 200px;
-        object-fit: cover;
-    }
+    <style>
+        /* ===== GLASS NAVBAR STYLE ===== */
+        .glass-navbar {
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
 
-    .badge-rented {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-    }
-</style>
+        .navbar-brand img {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+        }
 
-<!-- 🔹 HERO SECTION -->
-<section class="hero">
+        .navbar-nav .nav-link {
+            color: #ddd;
+            margin: 0 10px;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 🔹 NAVBAR -->
+<nav class="navbar navbar-expand-lg glass-navbar fixed-top">
     <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <p class="text-uppercase">New In Stock</p>
-                <h1>Upgrade Your Driving Experience</h1>
-                <p>
-                    Rent premium cars at affordable prices with secure booking,
-                    <strong>refundable deposit</strong> and real-time availability.
-                </p>
 
-                <a href="cars.php" class="btn btn-light me-2">Explore Vehicles</a>
-                <a href="booking.php" class="btn btn-outline-light">Book Now</a>
-            </div>
+        <!-- 🔹 LOGO + IMAGE -->
+        <a class="navbar-brand d-flex align-items-center" href="/car-rental-system/user/home.php">
+            <!-- 你的 Logo 图片 -->
+            <img src="assets/images/logo.png" alt="Logo">
+            <span class="text-white fw-bold">Wheel Rentals</span>
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navMenu">
+
+            <!-- 🔹 CENTER MENU -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/car-rental-system/user/home.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/car-rental-system/user/cars.php">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/car-rental-system/user/booking.php">Book Now</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/car-rental-system/user/my_bookings.php">My Booking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/car-rental-system/user/about.php">About Us</a>
+                </li>
+            </ul>
+
         </div>
+
+        <!-- 🔹 RIGHT MENU -->
+        <ul class="navbar-nav ms-auto">
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <li class="nav-item">
+                    <span class="nav-link text-light">
+                        Hi, <?= htmlspecialchars($_SESSION['username']) ?>
+                    </span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/car-rental-system/user/logout.php">
+                        Logout
+                    </a>
+                </li>
+            <?php else: ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="/car-rental-system/user/login.php">
+                        Login
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+
     </div>
-</section>
-
-<!-- 🔹 FEATURED VEHICLES -->
-<section class="py-5">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h2>Featured Vehicles</h2>
-                <p class="text-muted">Top rated cars chosen by our customers</p>
-            </div>
-            <a href="cars.php">View All →</a>
-        </div>
-
-        <div class="row g-4">
-
-            <!-- Car 1 -->
-            <div class="col-md-4">
-                <div class="card car-card position-relative">
-                    <img src="../assets/images/car1.jpg" class="card-img-top" alt="BMW X5">
-                    <div class="card-body">
-                        <h5>BMW X5</h5>
-                        <p class="text-muted">2023</p>
-                        <p><strong>$150</strong> / day</p>
-                        <a href="booking.php?car_id=1" class="btn btn-dark w-100">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Car 2 (Rented) -->
-            <div class="col-md-4">
-                <div class="card car-card position-relative">
-                    <span class="badge bg-danger badge-rented">RENTED</span>
-                    <img src="../assets/images/car2.jpg" class="card-img-top" alt="Mercedes C-Class">
-                    <div class="card-body">
-                        <h5>Mercedes C-Class</h5>
-                        <p class="text-muted">2024</p>
-                        <p><strong>$130</strong> / day</p>
-                        <button class="btn btn-secondary w-100" disabled>
-                            Unavailable
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Car 3 -->
-            <div class="col-md-4">
-                <div class="card car-card position-relative">
-                    <img src="../assets/images/car3.jpg" class="card-img-top" alt="Tesla Model Y">
-                    <div class="card-body">
-                        <h5>Tesla Model Y</h5>
-                        <p class="text-muted">2023</p>
-                        <p><strong>$110</strong> / day</p>
-                        <a href="booking.php?car_id=3" class="btn btn-dark w-100">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<?php
-include "include/footer.php";
-?>
+</nav>
