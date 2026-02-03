@@ -1,0 +1,99 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar-brand {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.navbar {
+    backdrop-filter: blur(8px);
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero {
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: #fff;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    max-width: 500px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn-outline-light:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* =========================
+   CAR CARDS
+========================= */
+
+.car-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.badge-rented {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background-color: #0b132b;
+    color: #ccc;
+    padding: 40px 0;
+}
+
+footer a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
