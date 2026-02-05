@@ -4,38 +4,52 @@ include "include/header.php";
 ?>
 
 <style>
-    /* Hero Section */
-    .hero {
-        background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-                    url("assets/images/home.jpg") center/cover no-repeat;
-        height: 80vh;
-        color: #fff;
-        display: flex;
-        align-items: center;
-    }
+/* =========================
+   Hero Section
+========================= */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                url("assets/images/home.jpg") center/cover no-repeat;
+    height: 80vh;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
 
-    .hero h1 {
-        font-size: 3rem;
-        font-weight: bold;
-    }
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
 
-    /* Featured Cars */
-    .car-card img {
-        height: 200px;
-        object-fit: cover;
-    }
+/* Booking box */
+.booking-box {
+    background: rgba(255,255,255,0.95);
+    padding: 20px;
+    border-radius: 8px;
+    color: #000;
+}
 
-    .badge-rented {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-    }
+/* =========================
+   Featured Cars
+========================= */
+.car-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.badge-rented {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
 </style>
 
 <!-- 🔹 HERO SECTION -->
 <section class="hero">
     <div class="container">
-        <div class="row">
+        <div class="row align-items-center">
+
+            <!-- 左边文字 -->
             <div class="col-md-7">
                 <p class="text-uppercase">New In Stock</p>
                 <h1>Upgrade Your Driving Experience</h1>
@@ -45,8 +59,61 @@ include "include/header.php";
                 </p>
 
                 <a href="cars.php" class="btn btn-light me-2">Explore Vehicles</a>
-                <a href="booking.php" class="btn btn-outline-light">Book Now</a>
             </div>
+
+             <!-- 右边 Quick Booking -->
+            <div class="col-md-5">
+                <div class="booking-box">
+                    <h5 class="mb-3">Quick Booking</h5>
+
+                    <form action="carlist.php" method="GET" onsubmit="return validateBookingTime()">
+
+                        <!-- 地点 -->
+                        <div class="mb-2">
+                            <label class="form-label">Pick-up Location (Melaka)</label>
+                            <select name="location" class="form-select" required>
+                                <option value="">-- Select Location --</option>
+                                <option value="Melaka Tengah">Melaka Tengah</option>
+                                <option value="Ayer Keroh">Ayer Keroh</option>
+                                <option value="Batu Berendam">Batu Berendam</option>
+                                <option value="Bukit Katil">Bukit Katil</option>
+                                <option value="Klebang">Klebang</option>
+                                <option value="Alor Gajah">Alor Gajah</option>
+                                <option value="Jasin">Jasin</option>
+                            </select>
+                        </div>
+
+                        <!-- Pick-up -->
+                        <div class="mb-2">
+                            <label class="form-label">Pick-up Date & Time</label>
+                            <input type="datetime-local"
+                                   name="start_datetime"
+                                   id="start_datetime"
+                                   class="form-control"
+                                   required>
+                        </div>
+
+                        <!-- Return -->
+                        <div class="mb-3">
+                            <label class="form-label">Return Date & Time</label>
+                            <input type="datetime-local"
+                                   name="end_datetime"
+                                   id="end_datetime"
+                                   class="form-control"
+                                   required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Choose Car
+                        </button>
+
+                    </form>
+                </div>
+    </form>
+</div>
+
+            </div>
+
         </div>
     </div>
 </section>
@@ -63,58 +130,75 @@ include "include/header.php";
         </div>
 
         <div class="row g-4">
-
-            <!-- Car 1 -->
-            <div class="col-md-4">
-                <div class="card car-card position-relative">
-                    <img src="../assets/images/car1.jpg" class="card-img-top" alt="BMW X5">
-                    <div class="card-body">
-                        <h5>BMW X5</h5>
-                        <p class="text-muted">2023</p>
-                        <p><strong>$150</strong> / day</p>
-                        <a href="booking.php?car_id=1" class="btn btn-dark w-100">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Car 2 (Rented) -->
-            <div class="col-md-4">
-                <div class="card car-card position-relative">
-                    <span class="badge bg-danger badge-rented">RENTED</span>
-                    <img src="../assets/images/car2.jpg" class="card-img-top" alt="Mercedes C-Class">
-                    <div class="card-body">
-                        <h5>Mercedes C-Class</h5>
-                        <p class="text-muted">2024</p>
-                        <p><strong>$130</strong> / day</p>
-                        <button class="btn btn-secondary w-100" disabled>
-                            Unavailable
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Car 3 -->
-            <div class="col-md-4">
-                <div class="card car-card position-relative">
-                    <img src="../assets/images/car3.jpg" class="card-img-top" alt="Tesla Model Y">
-                    <div class="card-body">
-                        <h5>Tesla Model Y</h5>
-                        <p class="text-muted">2023</p>
-                        <p><strong>$110</strong> / day</p>
-                        <a href="booking.php?car_id=3" class="btn btn-dark w-100">
-                            View Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+            <!-- Car cards (不动) -->
         </div>
     </div>
 </section>
 
+<!-- ⏱ 时间限制 JS -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const startInput = document.getElementById("start_datetime");
+    const endInput   = document.getElementById("end_datetime");
+
+    // 现在时间 + 12 小时（最早可预订）
+    const now = new Date();
+    now.setHours(now.getHours() + 12);
+    const minStart = now.toISOString().slice(0,16);
+
+    startInput.min = minStart;
+    endInput.min   = minStart;
+
+    // 当 Pick-up 改变时
+    startInput.addEventListener("change", function () {
+
+        if (!startInput.value) return;
+
+        const startDate = new Date(startInput.value);
+
+        // Return = Pick-up + 24 小时
+        const minReturn = new Date(startDate);
+        minReturn.setHours(minReturn.getHours() + 24);
+
+        endInput.min = minReturn.toISOString().slice(0,16);
+
+        // 如果原本选的 Return 不合法，清掉
+        if (endInput.value && new Date(endInput.value) < minReturn) {
+            endInput.value = "";
+        }
+    });
+
+});
+
+// 最终防守（防手动改 HTML）
+function validateBookingTime() {
+
+    const start = new Date(document.getElementById("start_datetime").value);
+    const end   = new Date(document.getElementById("end_datetime").value);
+
+    // 12 小时规则
+    const minStart = new Date();
+    minStart.setHours(minStart.getHours() + 12);
+
+    if (start < minStart) {
+        alert("Booking must be made at least 12 hours in advance.");
+        return false;
+    }
+
+    // 24 小时最少租期
+    const minEnd = new Date(start);
+    minEnd.setHours(minEnd.getHours() + 24);
+
+    if (end < minEnd) {
+        alert("Minimum rental period is 24 hours.");
+        return false;
+    }
+
+    return true;
+}
+</script>
+
 <?php
 include "include/footer.php";
 ?>
-
